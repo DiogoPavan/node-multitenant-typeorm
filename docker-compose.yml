@@ -1,0 +1,64 @@
+version: '3.8'
+services:
+  torm-back:
+    container_name: torm-back
+    image: node:lts
+    working_dir: /usr/src/app
+    volumes:
+      - ./:/usr/src/app
+    command: bash -c "npm install && npm run dev"
+    ports:
+      - '3000:3000'
+    depends_on:
+      - torm-master
+    env_file:
+      - .env
+    networks:
+      testing_net:
+        ipv4_address: 172.28.2.0
+  torm-master:
+    container_name: torm-master
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: torm-master
+      POSTGRES_USER: torm-master
+      POSTGRES_DB: torm-master
+    ports:
+      - '5432:5432'
+    networks:
+      testing_net:
+        ipv4_address: 172.28.2.1
+    restart: unless-stopped
+  tenant1:
+    container_name: tenant1
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: tenant1
+      POSTGRES_USER: tenant1
+      POSTGRES_DB: tenant1
+    ports:
+      - '5433:5432'
+    networks:
+      testing_net:
+        ipv4_address: 172.28.2.2
+    restart: unless-stopped
+  tenant2:
+    container_name: tenant2
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: tenant2
+      POSTGRES_USER: tenant2
+      POSTGRES_DB: tenant2
+    ports:
+      - '5434:5432'
+    networks:
+      testing_net:
+        ipv4_address: 172.28.2.3
+    restart: unless-stopped
+
+networks:
+  testing_net:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.28.0.0/16
