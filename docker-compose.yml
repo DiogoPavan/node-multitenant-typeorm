@@ -55,6 +55,28 @@ services:
       testing_net:
         ipv4_address: 172.28.2.3
     restart: unless-stopped
+  tenant3:
+    container_name: tenant3
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: tenant3
+      POSTGRES_USER: tenant3
+      POSTGRES_DB: tenant3
+    ports:
+      - '5435:5432'
+    networks:
+      testing_net:
+        ipv4_address: 172.28.2.5
+    restart: unless-stopped
+  torm-redis:
+    container_name: torm-redis
+    image: redis:alpine
+    ports:
+      - '6379:6379'
+    networks:
+      testing_net:
+        ipv4_address: 172.28.2.4
+    restart: unless-stopped
 
 networks:
   testing_net:

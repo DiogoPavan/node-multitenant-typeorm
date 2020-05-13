@@ -7,11 +7,13 @@
     "debug": "nodemon --watch ./dist --inspect=0.0.0.0:9222 --nolazy ./dist/index.js",
     "docker-debug": "docker-compose up",
     "start": "npm tsc",
-    "dev": "ts-node-dev --respawn --transpileOnly src/index.ts"
+    "dev": "ts-node-dev --respawn --transpileOnly src/index.ts",
+    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js"
   },
   "devDependencies": {
     "@types/cors": "^2.8.6",
     "@types/express": "^4.17.2",
+    "@types/ioredis": "^4.16.2",
     "@types/node": "^13.13.4",
     "ts-node-dev": "^1.0.0-pre.44",
     "typescript": "^3.8.2"
@@ -20,9 +22,11 @@
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "ioredis": "^4.16.3",
     "nodemon": "^2.0.3",
     "pg": "^8.0.3",
     "reflect-metadata": "^0.1.13",
+    "ts-node": "^8.10.1",
     "typeorm": "^0.2.24"
   }
 }

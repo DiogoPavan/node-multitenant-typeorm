@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { getConnection } from 'typeorm';
+import { createConnection } from 'typeorm';
 import Tenant from '../models/models-master/Tenant';
 
 class TenantController {
@@ -13,6 +13,18 @@ class TenantController {
     }
 
     const tenant = await Tenant.save(req.body);
+
+    await createConnection({
+      name: tenant.tenantSlug,
+      type: 'postgres',
+      host: tenant.dbHost,
+      port: tenant.dbPort,
+      username: tenant.dbUsername,
+      password: tenant.dbPassword,
+      database: tenant.dbName,
+      entities: ['src/models/models-db/*.ts'],
+      synchronize: true,
+    });
 
     return res.json(tenant);
   }
