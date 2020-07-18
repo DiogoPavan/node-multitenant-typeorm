@@ -3,7 +3,7 @@
 É uma prova de conceito para aplicar o Multitenant com banco de dados separados usando o TypeORM. 
 
 O banco utilizado para esse experimento foi o PostgreSQL. Para simular o multitenant foram criados os seguintes bancos:
-  - Master: Que faz o controler de conexão dos bancos dos tenants;
+  - Master: Que faz o controle das conexões dos bancos dos tenants;
   - Bancos Tenants: são os bancos dos clientes e que serão acessados o tenant informado na url;
   
 **Obs**: Foi feito alguns testes de Cache com o Redis, pois o intuito é separar o serviço que cuida da aplicação Master do server que cuida da aplicação para os Clientes Tenants.
